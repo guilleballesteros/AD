@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap/4.5.3/css/bootstrap.min.css}"/>
+</head>
+<body>
+	<form action="#" th:action="@{/students/addStudent}" th:object="${student}" method="post" enctype="multipart/form-data">
+		<h1 th:text="${student.id != 0} ? 'Editar estudiante' : 'Nuevo estudiante'"></h1>
+		<input type="hidden" th:field="*{id}" id="id">
+		<div class="form-group">
+			<label for="name">Name</label>
+			<input type="text" th:field="*{name}" class="form-control" id="name" placeholder="Enter name"/>
+		</div>
+		<div class="form-group">
+			<label for="firstname">FirstName</label>
+			<input type="text" th:field="*{firstname}" class="form-control" id="firstname" placeholder="Enter firstname"/>
+		</div>
+		<div class="form-group">
+			<label for="age">Age</label>
+			<input type="number" th:field="*{age}" class="form-control" id="age" placeholder="Enter age"/>
+			<small class="form-text text-danger" th:errors="*{age}"></small>
+		</div>
+		<div class="form-group">
+			<label for="sex">sex</label>
+			<input type="radio" th:field="*{sex}" checked="checked" class="form-control" id="sex" value="M"/>Male
+			<input type="radio" th:field="*{sex}" class="form-control" id="sex" value="F"/>Female
+		</div>
+		<div class="form-group">
+			<label for="file">Foto</label>
+			<input if="filebutton" name="file" class="form-control input-file" type="file">
+		</div>
+		<div class="form-group">
+			<label for="Course">Elige curso</label>
+			<select class="form-control seLectpicker" th:field="*{course.id}" id="course">
+				<option th:each="course : ${courses}"
+						th:value="${course.id}"
+						th:text="${course.name}">
+				</option>
+			</select>
+		</div>
+		<a th:href="@{/students/listStudents}">
+			<button type="button" class="btn btn-secondary"><i class="fas fa-arrow-circle-left"></i></button>
+		</a>
+		<input type="submit" class="btn btn-primary"/>
+	</form>
+	
+</body>
+</html>
